@@ -1,0 +1,84 @@
+[project]
+name = "agentic-api-rag-mcpserver"
+version = "1.0.0"
+description = "Agentic API RAG MCP Server - 让 AI 编码助手真正理解并利用团队的私有 API"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "API RAG Team", email = "team@example.com"}
+]
+keywords = ["mcp", "rag", "openapi", "langchain", "ai-assistant"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    # MCP Server
+    "mcp>=1.0.0",
+    "mcp-server-sqlite>=1.0.0",
+
+    # LangChain & LangGraph
+    "langchain>=0.2.0",
+    "langchain-core>=0.2.0",
+    "langgraph>=0.2.0",
+    "langchain-openai>=0.1.0",
+
+    # RAG & Vector Store
+    "chromadb>=0.4.0",
+    "langchain-community>=0.2.0",
+
+    # OpenAPI Parser
+    "openapi-schema-validator>=0.6.0",
+    "openapi-spec-validator>=0.7.0",
+
+    # Knowledge Graph
+    "networkx>=3.0",
+
+    # Config
+    "pydantic>=2.0",
+    "pydantic-settings>=2.0",
+    "pyyaml>=6.0",
+
+    # Utils
+    "httpx>=0.27.0",
+    "tenacity>=8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.4.0",
+    "mypy>=1.8.0",
+    "black>=24.0",
+]
+
+[project.scripts]
+agentic-rag-server = "main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
